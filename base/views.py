@@ -16,6 +16,17 @@ def create_room(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-    else:
+        
         form = RoomForm()
+    return render(request, 'base/room_form.html', {'form': form})
+
+def update_room(request, room_id):
+    room = get_object_or_404(Room, pk=room_id)
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room)  
+        if form.is_valid():
+            form.save()
+            return redirect('room', room_id=room.id)
+    else:
+        form = RoomForm(instance=room)  
     return render(request, 'base/room_form.html', {'form': form})

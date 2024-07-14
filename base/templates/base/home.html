@@ -3,8 +3,10 @@
   <span>@{{room.host.username}}</span>
   <h1><a href="{% url 'room' room.id %}">{{room.name}}</a></h1>
   <small>{{room.topic}}</small>
+  <a href="{% url 'updateRoom' room.id %}">Edit room</a>
   <hr />
 </div>
 {% endfor %}
 <a href="{% url 'createRoom' %}">Create a new room</a>
+
 {% endblock %}
