@@ -4,6 +4,7 @@
   <h1><a href="{% url 'room' room.id %}">{{room.name}}</a></h1>
   <small>{{room.topic}}</small>
   <a href="{% url 'updateRoom' room.id %}">Edit room</a>
+  <a href="{% url 'deleteRoom' room.id %}">delete</a>
   <hr />
 </div>
 {% endfor %}
