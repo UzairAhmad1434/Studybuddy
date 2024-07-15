@@ -1,10 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Room
+from .models import Room,Topic
 from .forms import RoomForm
 
 def home(request):
-     rooms = Room.objects.all()
-     return render(request, 'base/home.html',{'rooms': rooms})
+    q = request.GET.get('q') if request.GET.get('q') else ''
+    if q:
+        rooms = Room.objects.filter(topic__name__icontains=q)
+    else:
+        rooms = Room.objects.all()
+    topics=Topic.objects.all()
+    return render(request, 'base/home.html',{'rooms': rooms,'topics':topics})
 
 def room_view(request, room_id):
     rooms = get_object_or_404(Room, id=room_id)

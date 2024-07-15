@@ -1,13 +1,53 @@
-{% extends "main.html" %} {% block content%} {% for room in rooms %}
-<div>
-  <span>@{{room.host.username}}</span>
-  <h1><a href="{% url 'room' room.id %}">{{room.name}}</a></h1>
-  <small>{{room.topic}}</small>
-  <a href="{% url 'updateRoom' room.id %}">Edit room</a>
-  <a href="{% url 'deleteRoom' room.id %}">delete</a>
-  <hr />
-</div>
-{% endfor %}
-<a href="{% url 'createRoom' %}">Create a new room</a>
+{% extends "main.html" %} {% block content %}
+<style>
+  .container {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    width: 100vw;
+  }
+  .topics {
+    margin-right: 2rem;
+  }
+  .rooms {
+    flex-grow: 1;
+  }
+  .room {
+    margin-bottom: 1rem;
+  }
+  .room h1 {
+    margin: 0.5rem 0;
+  }
+  .room-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+</style>
 
+<div class="container">
+  <div class="topics">
+    <h1>Browse Topics</h1>
+    <a href="{% url 'home' %}">All</a><br />
+    {% for topic in topics %}
+    <a href="{% url 'home' %}?q={{ topic.name }}">{{ topic.name }}</a><br />
+    {% endfor %}
+    <hr />
+  </div>
+
+  <div class="rooms">
+    {% for room in rooms %}
+    <div class="room">
+      <span>@{{ room.host.username }}</span>
+      <h1><a href="{% url 'room' room.id %}">{{ room.name }}</a></h1>
+      <small>{{ room.topic }}</small>
+      <div class="room-actions">
+        <a href="{% url 'updateRoom' room.id %}">Edit room</a>
+        <a href="{% url 'deleteRoom' room.id %}">Delete</a>
+      </div>
+      <hr />
+    </div>
+    {% endfor %}
+    <a href="{% url 'createRoom' %}">Create a new room</a>
+  </div>
+</div>
 {% endblock %}
