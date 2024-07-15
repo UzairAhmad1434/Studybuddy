@@ -1,11 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Room,Topic
+from django.db.models import Q
 from .forms import RoomForm
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') else ''
     if q:
-        rooms = Room.objects.filter(topic__name__icontains=q)
+        rooms = Room.objects.filter(
+            Q(topic__name__icontains=q) |
+            Q(name__icontains=q) |
+            Q(description__icontains=q)
+        )
     else:
         rooms = Room.objects.all()
     topics=Topic.objects.all()
