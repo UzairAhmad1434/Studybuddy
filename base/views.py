@@ -1,7 +1,33 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Room,Topic
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 from .forms import RoomForm
+
+
+
+def login_page(request):
+    if request.method=='POST':
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+
+        try:
+            user=User.objects.get(username=username)
+        except:
+            messages.error(request,'User does not exist')
+
+        user=authenticate(request,username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request,'Username or password does not exist')
+
+    context={}
+    return render(request,'base/login_register.html',context)
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') else ''
@@ -14,7 +40,8 @@ def home(request):
     else:
         rooms = Room.objects.all()
     topics=Topic.objects.all()
-    return render(request, 'base/home.html',{'rooms': rooms,'topics':topics})
+    room_count=rooms.count()
+    return render(request, 'base/home.html',{'rooms': rooms,'topics':topics,'room_count':room_count})
 
 def room_view(request, room_id):
     rooms = get_object_or_404(Room, id=room_id)
