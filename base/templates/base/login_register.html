@@ -1,12 +1,28 @@
-{% extends "main.html" %}
-{% block content %}
-<inpi method="post" >
+{% extends "main.html" %} {% block content %}
+<div>
+  <form method="post">
     {% csrf_token %}
     <label>Username:</label>
-    <input type="text" name="username" id="username" placeholder="Enter Username">
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="Enter Username"
+    />
     <label>Password:</label>
-    <input type="password" name="password" id="password" placeholder="Enter Password">
-    <input type="submit" value="Login">
-     
-</form>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Enter Password"
+    />
+    <input type="submit" value="Login" />
+  </form>
+</div>
+<div>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" value="register" />
+  </form>
+</div>
 {% endblock content %}
