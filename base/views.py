@@ -73,18 +73,18 @@ def home(request):
 
 
 def room_view(request, room_id):
-    rooms = Room.objects.get(id=room_id)
-    messages=rooms.message_set.all().order_by('-created')
+    room_instance = get_object_or_404(Room, id=room_id)
+    messages = room_instance.message_set.all().order_by('-created')
 
-    if request.method=='POST':
-        message=Message.objects.create(
+    if request.method == 'POST':
+        message = Message.objects.create(
             user=request.user,
-            room=room_view,
-            body=request.POST.get('body' ),
+            room=room_instance,
+            body=request.POST.get('body')
         )
-        return redirect('room_view', room_id=room_view.id)
+        return redirect('room', room_id=room_instance.id)
 
-    return render(request, 'base/room.html', {'room': rooms,'messages':messages})
+    return render(request, 'base/room.html', {'room': room_instance, 'messages': messages})
 
 @login_required(login_url='/login')
 def create_room(request):
@@ -97,6 +97,7 @@ def create_room(request):
         form = RoomForm()  # Initialize the form for GET requests
 
     return render(request, 'base/room_form.html', {'form': form})
+
 
 def update_room(request, room_id):
     room = get_object_or_404(Room, pk=room_id)

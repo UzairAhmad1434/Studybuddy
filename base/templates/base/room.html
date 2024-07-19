@@ -12,7 +12,7 @@
   {% endfor %}
 </div>
 
-{% if request.user.is_authenticate%}
+{% if request.user.is_authenticated%}
 <div>
   <form method="POST">
     {% csrf_token %}
