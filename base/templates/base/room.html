@@ -1,1 +1,27 @@
 <h1>{{room.name}}</h1>
+<p>{{room.description}}</p>
+<div class="comment_wrapper">
+  <h1>conversation here</h1>
+  <hr />
+  {% for message in messages%}
+  <div>
+    <small>@{{message.user}} {{message.created|timesince}} ago</small>
+    <p>{{message.body}}</p>
+    <hr />
+  </div>
+  {% endfor %}
+</div>
+
+{% if request.user.is_authenticate%}
+<div>
+  <form method="POST">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="body"
+      id="text"
+      placeholder="Write comment here..."
+    />
+  </form>
+</div>
+{% endif %}

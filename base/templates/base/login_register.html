@@ -24,7 +24,7 @@
 {% else %}
 <div>
   <form method="post">
-    {% csrf_token %}
+    {% csrf_token %} {{form.as_p}}
     <input type="submit" value="register" />
   </form>
   <p>Already signed up yet!</p>
