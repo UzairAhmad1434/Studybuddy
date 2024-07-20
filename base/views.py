@@ -68,9 +68,15 @@ def home(request):
         rooms = Room.objects.all()
     topics=Topic.objects.all()
     room_count=rooms.count()
-    return render(request, 'base/home.html',{'rooms': rooms,'topics':topics,'room_count':room_count})
+    room_message=Message.objects.filter(Q(room__topic__name__icontains=q))
+    return render(request, 'base/home.html',{'rooms': rooms,'topics':topics,'room_count':room_count,'room_message':room_message})
 
-
+def profile(request,room_id):
+    user=User.objects.get(id=room_id)
+    rooms=user.room_set.all()
+    room_message=user.message_set.all()
+    topics=Topic.objects.all()
+    return render(request,'base/profile.html',{'user':user,'rooms':rooms,'room_message':room_message,'topics':topics})
 
 def room_view(request, room_id):
     room_instance = get_object_or_404(Room, id=room_id)

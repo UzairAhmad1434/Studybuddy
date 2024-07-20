@@ -2,7 +2,7 @@
 <style>
   .container {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr 1fr;
   }
   .topics {
     margin-right: 2rem;
@@ -23,42 +23,14 @@
 </style>
 
 <div class="container">
-  <div class="topics">
-    <h1>Browse Topics</h1>
-    <hr />
-    <a href="{% url 'home' %}">All</a><br />
-    {% for topic in topics %}
-    <a href="{% url 'home' %}?q={{ topic.name }}">{{ topic.name }}</a><br />
-    {% endfor %}
-    <hr />
-  </div>
+  <div class="topics">{% include 'base/topics.html' %}</div>
 
   <div class="rooms">
     <h4>{{room_count}} rooms available</h4>
     <a href="{% url 'createRoom' %}">Create a new room</a>
-    {% for room in rooms %}
-    <div class="room">
-      <span>@{{ room.host.username }}</span>
-      <h1><a href="{% url 'room' room.id %}">{{ room.name }}</a></h1>
-      <small>{{ room.topic }}</small>
-      <div class="room-actions">
-        {% if request.user == room.host %}
-        <a href="{% url 'updateRoom' room.id %}">Edit room</a>
-        <a href="{% url 'deleteRoom' room.id %}">Delete</a>
-        {% endif %}
-      </div>
-      <hr />
-    </div>
-    {% endfor %}
+    {% include 'base/feed.html'%}
   </div>
-  <div>
-    <h1>Recent Activity</h1>
-    <hr />
-    {% for message in message-room %}
-    <small>@{{message.user}} {{message.created|timesince}}</small>
-    <small>repleid to {{message.room}}</small>
-    <p>{{message}}</p>
-    {% endfor %}
-  </div>
+
+  <div>{% include 'base/activity_component.html' %}</div>
 </div>
 {% endblock %}
