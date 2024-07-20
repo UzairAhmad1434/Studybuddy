@@ -75,6 +75,7 @@ def home(request):
 def room_view(request, room_id):
     room_instance = get_object_or_404(Room, id=room_id)
     messages = room_instance.message_set.all().order_by('-created')
+    participants=room_instance.participants.all()
 
     if request.method == 'POST':
         message = Message.objects.create(
@@ -82,9 +83,10 @@ def room_view(request, room_id):
             room=room_instance,
             body=request.POST.get('body')
         )
+        room_instance.participants.add(request.user)
         return redirect('room', room_id=room_instance.id)
 
-    return render(request, 'base/room.html', {'room': room_instance, 'messages': messages})
+    return render(request, 'base/room.html', {'room': room_instance, 'messages': messages,'participants':participants})
 
 @login_required(login_url='/login')
 def create_room(request):
@@ -98,7 +100,7 @@ def create_room(request):
 
     return render(request, 'base/room_form.html', {'form': form})
 
-
+@login_required(login_url='/login')
 def update_room(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
     if request.method == 'POST':
@@ -113,6 +115,7 @@ def update_room(request, room_id):
         return HttpResponse('you are not allowed here')
     return render(request, 'base/room_form.html', {'form': form})
 
+@login_required(login_url='/login')
 def delete_room(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     if request.user!=room.host:
@@ -121,3 +124,13 @@ def delete_room(request, room_id):
         room.delete()
         return redirect('home')
     return render(request, 'base/delete_room.html', {'obj': room})
+
+@login_required(login_url='/login')
+def delete_message(request, room_id):
+    message = get_object_or_404(Message, id=room_id)
+    if request.user!=message.user:
+        return HttpResponse('you are not allowed here')
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    return render(request, 'base/delete_room.html', {'obj': message})
