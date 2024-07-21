@@ -1,11 +1,16 @@
 {% for room in rooms %}
 <div class="room">
+  {% if room.host and room.host.id %}
   <a href="{% url 'profile' room.host.id %}">@{{ room.host.username }}</a>
+  {% else %}
+  <p>Host information not available.</p>
+  {% endif %}
+
   <h1><a href="{% url 'room' room.id %}">{{ room.name }}</a></h1>
   <small>{{ room.topic }}</small>
   <div class="room-actions">
     {% if request.user == room.host %}
-    <a href="{% url 'updateRoom' room. %id}">Edit room</a>
+    <a href="{% url 'updateRoom' room.id %}">Edit</a>
     <a href="{% url 'deleteRoom' room.id %}">Delete</a>
     {% endif %}
   </div>
