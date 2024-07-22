@@ -104,7 +104,7 @@ def create_room(request):
             room.save()
             return redirect('home')
     else:
-        form = RoomForm()  # Initialize the form for GET requests
+        form = RoomForm()  
 
     return render(request, 'base/room_form.html', {'form': form})
 
