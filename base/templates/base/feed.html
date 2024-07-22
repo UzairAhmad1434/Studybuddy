@@ -64,7 +64,7 @@
       <p>{{room.description}}</p>
     </div>
     <div class="roomListRoom__meta">
-      <a href="room.html" class="roomListRoom__joined">
+      <a href="{% url 'room' room.id %}" class="roomListRoom__joined">
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
