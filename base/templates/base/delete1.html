@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete--room</title>
+  </head>
+  <body>
+    <h1>Really you want to delete a "{{obj}}"?</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">confirm</button>
+      <a href="{% url 'home' %}">Go Back</a>
+    </form>
+  </body>
+</html>

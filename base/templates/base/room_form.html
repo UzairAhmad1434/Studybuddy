@@ -21,11 +21,32 @@
           <h3>Create Study Room</h3>
         </div>
       </div>
+     
       <div class="layout__body">
         <form class="form" action="#" method="post">
+          {% csrf_token %}
           <div class="form__group">
-            {% csrf_token %} {{ form.as_p }}
-            <button class="btn btn--main" type="submit">Create Room</button>
+            <label for="room_topic">Room Topic</label>
+            <input required type="text" value="{{room.topic.name}}" name="topic" id="room_topic" list="topic-list" />
+            <datalist id="topic-list">
+              <select id="room_topic">
+              {% for topic in topic %}
+                <option value="{{topic.name}}">{{topic.name}}</option>
+              {% endfor%}
+              </select>
+            </datalist>
+          </div>
+          <div class="form__group">
+            <label for="room_name">Room Name</label>
+            {{form.name}}
+          </div>
+          <div class="form__group">
+            <label for="room_description">Room Description</label>
+            {{form.description}}
+          </div>
+           
+           
+            <button class="btn btn--main" type="submit">Submit</button>
           </div>
         </form>
       </div>
