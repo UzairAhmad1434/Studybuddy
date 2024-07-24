@@ -13,5 +13,8 @@ urlpatterns = [
     path('delete_room/<int:room_id>', views.delete_room, name='deleteRoom'),
     path('delete_message/<int:room_id>', views.delete_message, name='deleteMessage'),
     path('updateProfile', views.updateProfile, name='updateprofile'),
+    path('topic', views.topicPage, name='topic'),
+    path('acitivity', views.activityPage, name='activity'),
 ]
+
 

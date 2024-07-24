@@ -93,13 +93,14 @@
           </div>
           <div class="room__hosted">
             <p>Hosted By</p>
-            <a href="#" class="room__author">
+            <a href="{% url 'profile'  room.host.id %}" class="room__author">
               <div class="avatar avatar--small">
                 <img src="https://randomuser.me/api/portraits/men/37.jpg" />
               </div>
               <span>@{{room.host}}</span>
             </a>
           </div>
+
           <!-- <div class="room__details">{{room.description}}</div> -->
           <span class="room__topics">{{room.topic}}</span>
         </div>

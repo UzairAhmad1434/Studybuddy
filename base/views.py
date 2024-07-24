@@ -66,7 +66,7 @@ def home(request):
         )
     else:
         rooms = Room.objects.all()
-    topics=Topic.objects.all()
+    topics=Topic.objects.all()[0:4]
     room_count=rooms.count()
     room_message=Message.objects.filter(Q(room__topic__name__icontains=q))
     return render(request, 'base/home.html',{'rooms': rooms,'topics':topics,'room_count':room_count,'room_message':room_message})
@@ -162,3 +162,11 @@ def updateProfile(request):
             form.save()
             return redirect('profile', room_id=user.id) 
     return render(request, 'base/update_profile.html', {'form': form})
+
+def topicPage(request):
+     topic=Topic.objects.filter()
+     return render(request, 'base/topic.html', {'topic':topic})
+
+def activityPage(request):
+     message=Message.objects.all()
+     return render(request, 'base/activity.html', {'message':message})
