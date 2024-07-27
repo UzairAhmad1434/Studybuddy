@@ -1,1 +1,1 @@
-# Studybuddy
+this application can have crud operation using Django python where we can add rooms see rooms edit rooms and can also delete rooms ....user login before operating these all operatios and user can sign up before login# Studybuddy
