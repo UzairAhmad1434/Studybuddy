@@ -19,7 +19,7 @@
           </div>
           <div class="profile__info">
             <h3>{{user.username}}</h3>
-            <p><a href="{% url 'profile' user.id %}">@{{user.email}}</a></p>
+            <p><a href="{% url 'profile' user.id %}">@{{user.username}}</a></p>
             {% if request.user == user %}
             <a href="{% url 'updateprofile' %}" class="btn btn--main btn--pill">Edit Profile</a>
             {% endif %}
@@ -27,9 +27,7 @@
           <div class="profile__about">
             <h3>About</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
-              facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
-              accusamus repudiandae quis ab ex exercitationem rem?
+              {{user.bio}}
             </p>
           </div>
         </div>
