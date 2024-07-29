@@ -11,10 +11,10 @@
         class="roomListRoom__author"
       >
         <div class="avatar avatar--small">
-          <img src="{% static 'images/avatar.svg' %}" alt="Avatar" />
+          <img src="{{message.user.avatar.url}}" alt="Avatar" />
         </div>
         <p>
-          @{{message.user}}
+          @{{message.user.username}}
           <span>{{message.created|timesince}}</span>
         </p>
       </a>

@@ -31,10 +31,10 @@
               class="roomListRoom__author"
             >
               <div class="avatar avatar--small">
-                <img src="{% static 'images/avatar.svg' %}" alt="Avatar" />
+                <img src="{{m.user.avatar.url}}" alt="Avatar" />
               </div>
               <p>
-                @{{m.user}}
+                @{{m.user.username}}
                 <span>{{m.created|timesince}}</span>
               </p>
             </a>
