@@ -41,7 +41,7 @@
 
             <div class="roomListRoom__actions">
               {% if request.user == m.user %}
-              <a href="{% url 'deleteMessage' message.id %}">
+              <a href="{% url 'deleteMessage' m.id %}">
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
